@@ -1,3 +1,5 @@
+console.log("JS OK");
+
 class SinhVien {
     constructor(hoTen, msv) {
         this.hoTen = hoTen;
@@ -9,13 +11,12 @@ class SinhVien {
     }
 
     taoEmail() {
-        let cleanName = this.hoTen
+        let clean = this.hoTen
             .replace(/\(.*?\)/g, "")
             .trim()
             .toLowerCase();
 
-        let parts = cleanName.split(" ");
-
+        let parts = clean.split(" ");
         let ten = parts.pop();
         let initials = parts.map(p => p[0]).join("");
 
@@ -23,7 +24,7 @@ class SinhVien {
     }
 
     tinhKhoaHoc() {
-        return "Khoá" + this.msv.substring(0, 2);
+        return "K" + this.msv.substring(0, 2);
     }
 
     xacDinhKhoa() {
@@ -46,42 +47,52 @@ class SinhVien {
     }
 }
 
-// đọc file
+// EVENT LOAD FILE
 document.getElementById("fileInput").addEventListener("change", function(e) {
+    console.log("Đã chọn file");
+
     let file = e.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
+    let reader = new FileReader();
 
     reader.onload = function(event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
+        try {
+            let data = new Uint8Array(event.target.result);
+            let workbook = XLSX.read(data, { type: "array" });
 
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const json = XLSX.utils.sheet_to_json(sheet);
+            let sheet = workbook.Sheets[workbook.SheetNames[0]];
+            let json = XLSX.utils.sheet_to_json(sheet);
 
-        let danhSach = [];
+            console.log("DATA:", json);
 
-        json.forEach(row => {
-            let values = Object.values(row);
+            let danhSach = [];
 
-            let msv = values[1];
-            let hoTen = values[2];
+            json.forEach(row => {
+                let values = Object.values(row);
 
-            if (hoTen && msv) {
-                danhSach.push(new SinhVien(hoTen, msv));
-            }
-        });
+                let msv = values[1];
+                let hoTen = values[2];
 
-        hienThi(danhSach);
+                if (msv && hoTen) {
+                    danhSach.push(new SinhVien(hoTen, msv));
+                }
+            });
+
+            hienThi(danhSach);
+
+        } catch (err) {
+            console.error("Lỗi:", err);
+            alert("Lỗi đọc file Excel!");
+        }
     };
 
     reader.readAsArrayBuffer(file);
-}
+});
 
-// hiển thị
+// HIỂN THỊ
 function hienThi(ds) {
-    const tbody = document.querySelector("#table tbody");
+    let tbody = document.querySelector("#table tbody");
     tbody.innerHTML = "";
 
     ds.forEach(sv => {
