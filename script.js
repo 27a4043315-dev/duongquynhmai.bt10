@@ -23,18 +23,26 @@ class SinhVien {
     }
 
     tinhKhoaHoc() {
-        return "K" + this.msv.substring(0, 2);
+        return "Khoá" + this.msv.substring(0, 2);
     }
 
-    xacDinhKhoa() {
-        let kyTu = this.msv[2];
+  xacDinhKhoa() {
+    if (!this.msv || this.msv.length < 6) return "Không xác định";
 
-        switch (kyTu) {
-            case "A": return "Công nghệ thông tin";
-            case "B": return "Tài chính";
-            case "C": return "Ngân hàng";
-            case "D": return "Kế toán";
-            default: return "Khác";
+    let majorCode = this.msv.substring(3, 6);
+
+    switch (majorCode) {
+        case "404": return "CNTT & KTS";
+        case "408": return "Khoa học dữ liệu";
+        case "401": return "Tài chính - Ngân hàng";
+        case "403": return "Quản trị kinh doanh";
+        case "405": return "Kinh doanh quốc tế";
+        case "407": return "Kinh tế";
+        case "406": return "Luật";
+        case "751": return "Ngoại ngữ";
+        case "402": return "Kế toán - Kiểm toán";
+        default: return "Không xác định";
+    }
         }
     }
 }
