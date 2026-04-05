@@ -8,7 +8,6 @@ class SinhVien {
         this.khoa = this.xacDinhKhoa();
     }
 
-    // Tạo email chuẩn
     taoEmail() {
         let cleanName = this.hoTen
             .replace(/\(.*?\)/g, "") // bỏ (LT)
@@ -23,12 +22,10 @@ class SinhVien {
         return `${ten}${chuCaiDau}.${this.msv.toLowerCase()}@hvnh.edu.vn`;
     }
 
-    // Khóa học
     tinhKhoaHoc() {
         return "K" + this.msv.substring(0, 2);
     }
 
-    // Khoa (theo ký tự thứ 3)
     xacDinhKhoa() {
         let kyTu = this.msv[2];
 
@@ -42,8 +39,11 @@ class SinhVien {
     }
 }
 
-// Đọc file Excel
+console.log("JS đã chạy");
+
 document.getElementById("fileInput").addEventListener("change", function(e) {
+    console.log("Đã chọn file");
+
     let file = e.target.files[0];
     if (!file) return;
 
@@ -56,15 +56,19 @@ document.getElementById("fileInput").addEventListener("change", function(e) {
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const json = XLSX.utils.sheet_to_json(sheet);
 
+        console.log("Dữ liệu:", json);
+
         let danhSach = [];
 
+        // ⚠️ ĐỌC THEO VỊ TRÍ CỘT (fix 100%)
         json.forEach(row => {
-            let hoTen = row["Họ tên"];
-            let msv = row["Mã SV"];
+            let values = Object.values(row);
+
+            let msv = values[1];   // cột 2: Mã SV
+            let hoTen = values[2]; // cột 3: Họ tên
 
             if (hoTen && msv) {
-                let sv = new SinhVien(hoTen, msv);
-                danhSach.push(sv);
+                danhSach.push(new SinhVien(hoTen, msv));
             }
         });
 
@@ -74,13 +78,12 @@ document.getElementById("fileInput").addEventListener("change", function(e) {
     reader.readAsArrayBuffer(file);
 });
 
-// Hiển thị
 function hienThi(danhSach) {
     const tbody = document.querySelector("#table tbody");
     tbody.innerHTML = "";
 
     danhSach.forEach(sv => {
-        let row = `
+        tbody.innerHTML += `
             <tr>
                 <td>${sv.hoTen}</td>
                 <td>${sv.msv}</td>
@@ -89,6 +92,5 @@ function hienThi(danhSach) {
                 <td>${sv.email}</td>
             </tr>
         `;
-        tbody.innerHTML += row;
     });
 }
