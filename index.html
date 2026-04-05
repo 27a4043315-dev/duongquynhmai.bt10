@@ -2,22 +2,28 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý sinh viên</title>
+    <title>Danh sách sinh viên</title>
+
+    <!-- Font cute -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>📚 Danh sách sinh viên</h1>
+    <h1>💙 Danh sách sinh viên</h1>
 
-    <input type="file" id="fileInput" accept=".xlsx, .xls">
+    <label class="upload-box">
+        📂 Chọn file Excel
+        <input type="file" id="fileInput" accept=".xlsx, .xls">
+    </label>
 
     <table id="table">
         <thead>
             <tr>
                 <th>Họ tên</th>
-                <th>MSV</th>
-                <th>Lớp</th>
+                <th>Mã SV</th>
                 <th>Khóa</th>
                 <th>Khoa</th>
                 <th>Email</th>
@@ -27,7 +33,6 @@
     </table>
 </div>
 
-<!-- Thư viện đọc Excel -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <script src="script.js"></script>
 
