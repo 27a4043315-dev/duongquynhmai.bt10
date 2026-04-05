@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sinh viên</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Danh sách sinh viên</h1>
+
+    <input type="file" id="fileInput" accept=".xlsx, .xls">
+
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Họ tên</th>
+                <th>MSV</th>
+                <th>Lớp</th>
+                <th>Khóa</th>
+                <th>Khoa</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!-- Thư viện đọc Excel -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
