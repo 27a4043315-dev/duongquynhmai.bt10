@@ -1,81 +1,51 @@
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #fff7cc, #ffffff);
+    background: linear-gradient(135deg, #fff8dc, #ffffff);
     margin: 0;
 }
 
-/* container */
 .container {
     width: 90%;
-    margin: 50px auto;
+    margin: 40px auto;
     text-align: center;
 }
 
-/* tiêu đề */
 h1 {
-    color: #d4a017;
-    font-weight: 600;
+    color: #c59d00;
 }
 
-/* nút upload */
-.upload-box {
-    display: inline-block;
-    padding: 14px 25px;
-    background: linear-gradient(135deg, #ffd966, #ffcc33);
-    color: #5a4a00;
-    border-radius: 30px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(255, 204, 51, 0.4);
+/* input file */
+input[type="file"] {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-.upload-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 25px rgba(255, 204, 51, 0.6);
-}
-
-.upload-box input {
-    display: none;
-}
-
-/* bảng */
+/* table */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
     background: white;
-    border-radius: 20px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* header */
 th {
-    background: #ffd966;
-    color: #5a4a00;
-    padding: 14px;
-}
-
-/* cell */
-td {
+    background: #ffe066;
     padding: 12px;
-    border-bottom: 1px solid #f2f2f2;
 }
 
-/* hover */
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
 tr:hover {
-    background: #fff7cc;
-    transition: 0.2s;
+    background: #fff3bf;
 }
 
-/* dòng chẵn */
-tr:nth-child(even) {
-    background: #fffdf2;
-}
-
-/* email nổi */
 td:last-child {
-    color: #d4a017;
+    color: #c59d00;
     font-weight: 600;
 }
