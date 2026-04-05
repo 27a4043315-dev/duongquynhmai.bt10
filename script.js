@@ -1,31 +1,34 @@
-// ===== CLASS SINH VIÊN =====
 class SinhVien {
-    constructor(hoTen, msv, lop) {
+    constructor(hoTen, msv) {
         this.hoTen = hoTen;
         this.msv = msv;
-        this.lop = lop;
 
         this.email = this.taoEmail();
         this.khoaHoc = this.tinhKhoaHoc();
         this.khoa = this.xacDinhKhoa();
     }
 
-    // Tạo email: binhnv.27a4041234@hvnh.edu.vn
+    // Tạo email chuẩn
     taoEmail() {
-        let parts = this.hoTen.trim().toLowerCase().split(" ");
+        let cleanName = this.hoTen
+            .replace(/\(.*?\)/g, "") // bỏ (LT)
+            .trim()
+            .toLowerCase();
 
-        let ten = parts.pop(); // tên
-        let chuCaiDau = parts.map(p => p[0]).join(""); // n v
+        let parts = cleanName.split(" ");
+
+        let ten = parts.pop();
+        let chuCaiDau = parts.map(p => p[0]).join("");
 
         return `${ten}${chuCaiDau}.${this.msv.toLowerCase()}@hvnh.edu.vn`;
     }
 
-    // Khóa học (27 -> K27)
+    // Khóa học
     tinhKhoaHoc() {
         return "K" + this.msv.substring(0, 2);
     }
 
-    // Khoa (tuỳ theo quy tắc bạn học)
+    // Khoa (theo ký tự thứ 3)
     xacDinhKhoa() {
         let kyTu = this.msv[2];
 
@@ -39,7 +42,7 @@ class SinhVien {
     }
 }
 
-// ===== XỬ LÝ FILE =====
+// Đọc file Excel
 document.getElementById("fileInput").addEventListener("change", function(e) {
     let file = e.target.files[0];
     if (!file) return;
@@ -56,12 +59,13 @@ document.getElementById("fileInput").addEventListener("change", function(e) {
         let danhSach = [];
 
         json.forEach(row => {
-            let sv = new SinhVien(
-                row["Họ tên"],
-                row["MSV"],
-                row["Lớp"]
-            );
-            danhSach.push(sv);
+            let hoTen = row["Họ tên"];
+            let msv = row["Mã SV"];
+
+            if (hoTen && msv) {
+                let sv = new SinhVien(hoTen, msv);
+                danhSach.push(sv);
+            }
         });
 
         hienThi(danhSach);
@@ -70,7 +74,7 @@ document.getElementById("fileInput").addEventListener("change", function(e) {
     reader.readAsArrayBuffer(file);
 });
 
-// ===== HIỂN THỊ =====
+// Hiển thị
 function hienThi(danhSach) {
     const tbody = document.querySelector("#table tbody");
     tbody.innerHTML = "";
@@ -80,7 +84,6 @@ function hienThi(danhSach) {
             <tr>
                 <td>${sv.hoTen}</td>
                 <td>${sv.msv}</td>
-                <td>${sv.lop}</td>
                 <td>${sv.khoaHoc}</td>
                 <td>${sv.khoa}</td>
                 <td>${sv.email}</td>
